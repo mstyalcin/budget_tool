@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: budget_tool
+    database_user: ftw
+    database_password: fetewe
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: mailer@mail.com
+    mailer_password: null
+    secret: c4d2d3775799ea5708827d7d7cada9f8a2d8e695
