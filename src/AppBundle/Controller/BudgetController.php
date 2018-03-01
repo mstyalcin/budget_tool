@@ -25,8 +25,8 @@ class BudgetController extends Controller
 
             $title = $request->request->get('title');
             $value = $request->request->get('value');
-            $startDate = new \DateTime($request->request->get('startdate'));
-            $endDate = new \DateTime($request->request->get('enddate'));
+            $startDate = $request->request->get('startdate');
+            $endDate = $request->request->get('enddate');
 
             $budget = new Budget($title, $value, $startDate, $endDate);
             $validator = $this->get('validator');
@@ -38,6 +38,8 @@ class BudgetController extends Controller
                 ));
             }
 
+            $budget->setStartDate(new \DateTime($startDate));
+            $budget->setEndDate(new \DateTime($endDate));
             $this->em = $this->getDoctrine()->getManager();
             $this->em->persist($budget);
             $this->em->flush();

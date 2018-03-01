@@ -33,6 +33,7 @@ class Budget
      * @var \DateTime
      *
      * @ORM\Column(name="start_date", type="date", nullable=false)
+     * @Assert\NotBlank(message = "Start date should not be blank.")
      * @Assert\Date(message = "Start date should be date")
      */
     private $startDate;
@@ -41,6 +42,7 @@ class Budget
      * @var \DateTime
      *
      * @ORM\Column(name="end_date", type="date", nullable=false)
+     * @Assert\NotBlank(message = "End date should not be blank.")
      * @Assert\Date(message = "End date should be date")
      */
     private $endDate;
@@ -53,21 +55,6 @@ class Budget
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * Budget constructor.
-     * @param string $title
-     * @param string $value
-     * @param \DateTime $startDate
-     * @param \DateTime $endDate
-     */
-    public function __construct($title, $value, \DateTime $startDate, \DateTime $endDate)
-    {
-        $this->title = $title;
-        $this->value = $value;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
-    }
 
 
     /**
@@ -177,4 +164,18 @@ class Budget
     }
 
 
+    /**
+     * Budget constructor.
+     * @param string $title
+     * @param string $value
+     * @param string $startDate
+     * @param string $endDate
+     */
+    public function __construct($title, $value, $startDate, $endDate)
+    {
+        $this->title = $title;
+        $this->value = $value;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
 }
