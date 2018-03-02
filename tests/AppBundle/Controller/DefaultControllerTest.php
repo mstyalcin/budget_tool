@@ -2,60 +2,57 @@
 
 namespace Tests\AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use AppBundle\Entity\Budget;
+use AppBundle\Entity\Initiative;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends KernelTestCase
 {
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    protected function setUp()
+    {
+        $kernel = self::bootKernel();
+
+        $this->em = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+    }
+
     public function testIndex()
     {
-        $client = static::createClient();
+
+        $budget = new Budget("New Test Budget", 1000, new \DateTime("2017-10-10"), new \DateTime("2018-10-10"));
+        $this->em->getRepository(Budget::class)->insertBudget($budget);
 
 
-        $client->request(
-            'POST',
-            '/login',
-            array());
+        $initiative = new Initiative("New Test Initiative", 200);
+        $initiative2 = new Initiative("New Test Initiative 2", 800);
+        $initiative3 = new Initiative("New Test Initiative 3", 200);
 
-        $client->request(
-            'POST',
-            '/new_budget',
-            array(
-            'title' => 'Budget Test',
-            'value'=> "1000",
-            'startdate'=> "2017-10-10",
-            'enddate' =>  "2018-10-10"
-            ));
-        $this->assertTrue($client->getResponse()->isRedirect('/new_initiative'));
+        $this->em->getRepository(Budget::class)->insertInitiative($initiative);
+        $budgetResult = $this->em->getRepository(Budget::class)->budgetExceeded();
+        $this->assertFalse($budgetResult);
 
-        $client->request(
-            'POST',
-            '/new_initiative',
-            array(
-                'title' => 'Initiative 1',
-                'value'=> "200",
-            ));
+        $this->em->getRepository(Budget::class)->insertInitiative($initiative2);
+        $budgetResult2 = $this->em->getRepository(Budget::class)->budgetExceeded();
+        $this->assertFalse($budgetResult2);
 
-        $this->assertContains('Budget Exceeded', $client->getResponse()->getContent());
 
-        $client->request(
-            'POST',
-            '/new_initiative',
-            array(
-                'title' => 'Initiative 1',
-                'value'=> "800",
-            ));
+        $this->em->getRepository(Budget::class)->insertInitiative($initiative3);
+        $budgetResult3 = $this->em->getRepository(Budget::class)->budgetExceeded();
+        $this->assertTrue($budgetResult3);
 
-        $this->assertContains('Budget Exceeded', $client->getResponse()->getContent());
+    }
 
-        $client->request(
-            'POST',
-            '/new_initiative',
-            array(
-                'title' => 'Initiative 1',
-                'value'=> "200",
-            ));
+    protected function tearDown()
+    {
+        parent::tearDown();
 
-        $this->assertContains('Budget Exceeded', $client->getResponse()->getContent());
-
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
     }
 }

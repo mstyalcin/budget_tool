@@ -5,11 +5,11 @@ login:
     path:     /login
     defaults: { _controller: AppBundle:Login:login }
 logout:
-        path:     /logout
-        defaults: { _controller: AppBundle:Login:logout }
+    path:     /logout
+    defaults: { _controller: AppBundle:Login:logout }
 new_budget:
     path:     /new_budget
     defaults: { _controller: AppBundle:Budget:newBudget }
 new_initiative:
     path:     /new_initiative
-    defaults: { _controller: AppBundle:Initiative:newInitiative }
+    defaults: { _controller: AppBundle:Budget:newInitiative }

@@ -34,7 +34,8 @@ class appTestDebugProjectContainerUrlGenerator extends Symfony\Component\Routing
         'login' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'AppBundle\\Controller\\LoginController::loginAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/login',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'logout' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'AppBundle\\Controller\\LoginController::logoutAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/logout',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'new_budget' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'AppBundle\\Controller\\BudgetController::newBudgetAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/new_budget',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
-        'new_initiative' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'AppBundle\\Controller\\InitiativeController::newInitiativeAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/new_initiative',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'new_initiative' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'AppBundle\\Controller\\BudgetController::newInitiativeAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/new_initiative',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'budget_exceeded' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'AppBundle\\Controller\\BudgetController::budgetExceededAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/budget_exceeded',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
         }
     }

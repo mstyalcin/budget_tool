@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -40,9 +41,10 @@ class BudgetController extends Controller
 
             $budget->setStartDate(new \DateTime($startDate));
             $budget->setEndDate(new \DateTime($endDate));
-            $this->em = $this->getDoctrine()->getManager();
-            $this->em->persist($budget);
-            $this->em->flush();
+
+            $this->getDoctrine()
+                ->getRepository(Budget::class)
+                ->insertBudget($budget);
 
             $this->addFlash('success', 'Budget has been added successfully.');
             return new RedirectResponse($this->generateUrl('new_initiative'));
@@ -50,6 +52,35 @@ class BudgetController extends Controller
 
         return $this->render('default/new_budget.html.twig',
             array()
+        );
+
+    }
+
+    public function newInitiativeAction(Request $request)
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $errors = null;
+
+        if($request->isMethod('POST')) {
+            $title = $request->request->get('title');
+            $value = $request->request->get('value');
+
+            $initiative = new Initiative($title, $value);
+            $validator = $this->get('validator');
+            $errors = $validator->validate($initiative);
+
+            $this->getDoctrine()
+                ->getRepository(Budget::class)
+                ->insertInitiative($initiative);
+
+        }
+
+        $initiatives = $this->getDoctrine()
+            ->getRepository(Initiative::class)
+            ->getInitiativeList();
+
+        return $this->render('default/new_initiative.html.twig',
+            array("initiatives" => $initiatives, "errors" => $errors)
         );
 
     }

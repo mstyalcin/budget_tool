@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Initiative
  *
  * @ORM\Table(name="initiative")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\InitiativeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BudgetRepository")
  */
 class Initiative
 {

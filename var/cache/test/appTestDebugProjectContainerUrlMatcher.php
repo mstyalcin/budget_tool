@@ -131,7 +131,12 @@ class appTestDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBun
 
         // new_initiative
         if ('/new_initiative' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\InitiativeController::newInitiativeAction',  '_route' => 'new_initiative',);
+            return array (  '_controller' => 'AppBundle\\Controller\\BudgetController::newInitiativeAction',  '_route' => 'new_initiative',);
+        }
+
+        // budget_exceeded
+        if ('/budget_exceeded' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\BudgetController::budgetExceededAction',  '_route' => 'budget_exceeded',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

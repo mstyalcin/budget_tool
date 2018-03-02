@@ -22,7 +22,7 @@ class Budget
     private $title;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="value", type="decimal", precision=13, scale=4, nullable=false)
      * @Assert\Type("numeric", message = "Value should be numeric")
@@ -84,7 +84,7 @@ class Budget
     /**
      * Set value
      *
-     * @param string $value
+     * @param float $value
      *
      * @return Budget
      */
@@ -98,7 +98,7 @@ class Budget
     /**
      * Get value
      *
-     * @return string
+     * @return float
      */
     public function getValue()
     {
@@ -167,7 +167,7 @@ class Budget
     /**
      * Budget constructor.
      * @param string $title
-     * @param string $value
+     * @param float $value
      * @param string $startDate
      * @param string $endDate
      */
